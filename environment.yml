@@ -1,0 +1,6 @@
+name: kmdiff_expe
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - parallel-fastq-dump

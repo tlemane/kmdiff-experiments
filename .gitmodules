@@ -1,0 +1,3 @@
+[submodule "thirdparty/HAWK"]
+	path = thirdparty/HAWK
+	url = https://github.com/atifrahman/HAWK
