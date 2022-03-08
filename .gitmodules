@@ -1,3 +1,6 @@
 [submodule "thirdparty/HAWK"]
 	path = thirdparty/HAWK
 	url = https://github.com/atifrahman/HAWK
+[submodule "thirdparty/kmdiff"]
+	path = thirdparty/kmdiff
+	url = https://github.com/tlemane/kmdiff

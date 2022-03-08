@@ -1,14 +1,18 @@
 #!/bin/bash
 
-dir=$1
-thread=$2
-tmp=$3
+sra_id="sra_test.txt"
+tmp="./tmp"
+thread=8
 
 [[ ! -d ${tmp} ]] && mkdir ${tmp}
 
-while IFS= read -r sra
+DATA=("./controls ./cases")
+for D in ${DATA[@]}
 do
-  parallel-fastq-dump -s ${sra} -t ${thread} -O ${dir} -T ${tmp} --split-e --gzip
-done < "${dir}/sra.txt"
+  while IFS= read -r sra
+  do
+    parallel-fastq-dump -s ${sra} -t ${thread} -O ${D} -T ${tmp} --split-e --gzip
+  done < "${D}/${sra_id}"
+done
 
-
+rm -rf tmp
