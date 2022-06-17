@@ -1,6 +1,6 @@
 # kmdiff-experiments
 
-This repository contains all materials to reproduce the experiments described in the paper: "kmdiff, large-scale and user-friendly differential k-mer analyses. T. Lemane, R. Chikhi and P. Peterlongo".
+This repository contains all materials to reproduce the experiments described in the paper: "kmdiff, large-scale and user-friendly differential k-mer analyses.", T. Lemane, R. Chikhi and P. Peterlongo.
 
 ## Installation
 
