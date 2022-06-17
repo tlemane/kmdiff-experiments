@@ -3,27 +3,28 @@
 #modified from countKmer2_jf2.sh
 
 CORES=20
-MEM=1G
+MEM=5G
 KMER_SIZE=31
 
-DATA_CONTROLS="../data/controls"
-DATA_CASES="../data/cases"
+DATA_CONTROLS="TSI"
+DATA_CASES="YRI"
 
 DIR="./hawk_output"
+
 mkdir ${DIR}
+
 HAWK_DIR="../../hawk_bin"
 JELLY_DIR="../../hawk_bin"
 
 DS=(${DATA_CASES} ${DATA_CONTROLS})
 for D in ${DS[@]}
 do
-  echo ${D}
-
-  ID="${D}/sra.txt"
-
+  ID="${D}.fof"
   while IFS= read -r sample
   do
-
+    fastq_files=$(echo ${sample} | cut -d':' -f2)
+    sample=$(echo ${sample} | cut -d':' -f1)
+    fastq=$(echo ${fastq_files} | sed -e "s/;/ /g")
     echo ${sample}
 
     OUTPREFIX=${DIR}/${sample}
@@ -31,7 +32,7 @@ do
     mkdir ${OUTPREFIX}_kmers
 
     ${JELLY_DIR}/jellyfish count -C -o ${OUTPREFIX}_kmers/tmp -m ${KMER_SIZE} -t ${CORES} -s ${MEM} \
-      <(zcat ${D}/${sample}_1.fastq.gz ${D}/${sample}_2.fastq.gz)
+      <(zcat ${fastq})
 
     COUNT=$(ls ${OUTPREFIX}_kmers/tmp* | wc -l)
 
@@ -68,6 +69,8 @@ do
       rm ${OUTPREFIX}_kmers.txt
 
       echo $(realpath "${OUTPREFIX}_kmers_sorted.txt") >> ${DIR}/sorted_files.txt
+
     fi
   done < ${ID}
 done
+
